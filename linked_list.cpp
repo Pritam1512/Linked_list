@@ -54,21 +54,18 @@ void creatLoop(struct node *temp)
     temp->next = head->next->next;
 }
 
-void detectLoop(struct node *temp)
+int detectLoop(Node* temp)
 {
-    struct node *nextTemp = head;
-
-
-    do{
-        temp = temp->next;
-        nextTemp = nextTemp->next->next;
+    Node *slow_p = temp, *fast_p = temp;
+ 
+    while (slow_p && fast_p && fast_p->next) {
+        slow_p = slow_p->next;
+        fast_p = fast_p->next->next;
+        if (slow_p == fast_p) {
+            return 1;
+        }
     }
-    while(temp != nextTemp && nextTemp != NULL);
-    if(temp == nextTemp)
-        cout << "Loop is present " <<endl;
-    else
-        cout << "Loop is not present" <<endl;
-
+    return 0;
 }
 
 void deleteNode(struct node *node)
